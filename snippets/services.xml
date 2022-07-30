@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Human Resource Services</description>
+    <version>1.0</version>
+
+    <service name="updateEmployee" engine="java" auth="true"
+        location="com.stannah.hr.service.UpdateEmployee" invoke="execute">
+        <description>Updates an employee's first and last names</description>
+        <attribute name="partyId" type="String" mode="INOUT"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastUpdated" type="Timestamp" mode="OUT"/>
+    </service>
+</services>
+
+
+<!-- Snippet from controller.xml -->
+<request-map uri="saveEmployee">
+    <event type="service" invoke="updateEmployee"/>

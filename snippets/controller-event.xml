@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Site-Conf"
+    xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <!-- ... -->
+
+    <request-map uri="getEmployee">
+        <security https="true" auth="true"/>
+        <event type="java" path="com.stannah.hr.events.GetEmployee" invoke="execute"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+
+    <request-map uri="saveEmployee">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateEmployee"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+
+    <!-- ... -->
+
+</site-conf>
