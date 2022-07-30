@@ -4,8 +4,8 @@ public class PersonQueries extends AbstractQueries {
 
     public static final String PERSON = "Person";
     public static final String PARTY_ID = "partyId";
-    public static final String PARTY_ID = "firstName";
-    public static final String PARTY_ID = "lastName";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
 
     PersonQueries() {}
 

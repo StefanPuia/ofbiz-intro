@@ -4,20 +4,30 @@ import {
   Step,
 } from "code-surfer";
 import { vsDark } from "@code-surfer/themes";
+import ofbizArchitecture from './images/ofbiz-architecture.png';
+
 export const theme = vsDark;
 
 # Hello 👋
 
 This is an introduction to the [OFBiz Framework](https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Tutorial+-+A+Beginners+Development+Guide)
 
+<small>Use the arrow keys to change slides</small>
+
 ---
 
 ## What is covered in this presentation
 
-- Controllers
-- Screens
-- Services
-- Query classes
+- [Controllers](/3)
+- [Screens](/8)
+- [Services](/10)
+- [Query classes](/12)
+
+---
+
+## How ofbiz works
+
+<img src={ofbizArchitecture} style="height:70vh;"/>
 
 ---
 
@@ -35,11 +45,11 @@ These can be found in `controller.xml` files.
 
 ```
 
-```diff 8:12 title="Requests" subtitle="Requests are the actual 'links' that the browser will access"
+```diff 8:12 title="Requests" subtitle="Requests are the actual 'links' that the browser will access."
 
 ```
 
-```diff 8[23:34] title="Request URIs" subtitle="By specifiying this property, the server will listen to requests to the '/hr/control/EditEmployee' URL"
+```diff 8[23:34] title="Request URIs" subtitle="By specifiying this property, the server will listen to requests to the '/hr/control/EditEmployee' URL."
 
 ```
 
@@ -47,7 +57,7 @@ These can be found in `controller.xml` files.
 
 ```
 
-```diff 10[19:32],11[19:30],15[19:32],16[19:30],17[19:34] title="Response names" subtitle="Based on the state of the code executed during this request, the server can do different things (e.g. redirect to an error page if there was an error)"
+```diff 10[19:32],11[19:30],15[19:32],16[19:30],17[19:34] title="Response names" subtitle="Based on the state of the code executed during this request, the server can do different things (e.g. redirect to an error page if there was an error)."
 
 ```
 
@@ -65,11 +75,11 @@ We are going to explore the two most common response types
 
 <Step>
 
-```xml 1[30:40] title="Views" subtitle="Views are responses that usually return HTML. (they can also return PDFs, CSVs and other "user-friendly" outputs"
+```xml 1[30:40] title="Views" subtitle="Views are responses that usually return HTML. (they can also return PDFs, CSVs and other "user-friendly" outputs."
     <response name="success" type="view" value="EditEmployee"/>
 ```
 
-```xml 1[30:43],2[28:41] title="Requests" subtitle="Requests are responses that return either raw data (json), or call a different request (directly, or by redirecting the user to one)"
+```xml 1[30:43],2[28:41] title="Requests" subtitle="Requests are responses that return either raw data (json), or call a different request (directly, or by redirecting the user to one)."
     <response name="success" type="request" value="json"/>
     <response name="error" type="request" value="json"/>
 ```
@@ -78,7 +88,7 @@ We are going to explore the two most common response types
 
 <Step>
 
-```xml 3,7,8 subtitle="Views have a corresponding 'view-map' at the end of the same controller.xml file that defines the type of view, and what will produce the output"
+```xml 3,7,8 subtitle="Views have a corresponding 'view-map' at the end of the same controller.xml file that defines the type of view, and what will produce the output."
 <request-map uri="EditEmployee">
     <security https="true" auth="true"/>
     <response name="success" type="view" value="EditEmployee"/>
@@ -89,7 +99,7 @@ We are going to explore the two most common response types
         page="component://hr/widget/management/EmployeeScreens.xml#EditEmployee"/>
 ```
 
-```xml 3:4 subtitle="Because these responses only return data, they have no 'view-map' equivalents"
+```xml 3:4 subtitle="Because these responses only return data, they have no 'view-map' equivalents."
 <request-map uri="saveEmployee">
     <security https="true" auth="true"/>
     <response name="success" type="request" value="json"/>
@@ -109,7 +119,7 @@ We are going to explore the two most common response types
         <event type="service" invoke="updateEmployee"/>
 ```
 
-```xml 10,17 file=./snippets/controller-event.xml title="Controller Request Events" subtitle="Most common types of events are services. They can also be defined by an actual location in the code (i.e. the full java class name)"
+```xml 10,17 file=./snippets/controller-event.xml title="Controller Request Events" subtitle="Most common types of events are services. They can also be defined by an actual location in the code (i.e. the full java class name)."
 
 ```
 
@@ -133,11 +143,11 @@ We are going to explore the two most common response types
 
 ```
 
-```xml 8:11 file=./snippets/screens.xml title="Screens" subtitle="Screens can also have their own logic. This should only fetch data that needs to be displayed on the screen"
+```xml 8:11 file=./snippets/screens.xml title="Screens" subtitle="Screens can also have their own logic. This should only fetch data that needs to be displayed on the screen."
 
 ```
 
-```xml 13:14,22:23 file=./snippets/screens.xml title="Screens" subtitle="The decorator wraps the screen with all the global markup (application bar, scripts, style)"
+```xml 13:14,22:23 file=./snippets/screens.xml title="Screens" subtitle="The decorator wraps the screen with all the global markup (application bar, scripts, style)."
 
 ```
 
@@ -153,17 +163,17 @@ We are going to explore the two most common response types
 
 Services are globally defined methods that can be invoked across the system.<br/>
 Because they are global, check if there is a service with the same name before <br/>
-creating one, otherwise one of them will end up overwritten by the other one.
+creating one, otherwise one of them will end up overwriting the other one.
 
 ---
 
 <CodeSurfer>
 
-```xml 1:14 file=./snippets/services.xml title="Services"
+```xml 1:15 file=./snippets/services.xml title="Services"
 
 ```
 
-```xml 7[20:33],20[35:48] file=./snippets/services.xml title="Services" subtitle="The service name is used by controller events"
+```xml 7[20:33],20[35:48] file=./snippets/services.xml title="Services" subtitle="The service name is used by controller events."
 
 ```
 
