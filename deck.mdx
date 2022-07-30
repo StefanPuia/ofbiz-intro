@@ -9,137 +9,75 @@ export const theme = vsDark;
 
 # Hello 👋
 
-You are using [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us)
+This is an introduction to the [OFBiz Framework](https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Tutorial+-+A+Beginners+Development+Guide)
 
 ---
 
 <CodeSurfer>
 
-```js title="This is a title" subtitle="and this a subtitle"
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
+```xml file=./snippets/controller.xml title="The controller" subtitle="The controller is the entry point to the application. It defines any links accessible by the browser."
 
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
 ```
 
-```js
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function adipiscing(...elit) {
-  if (!elit.sit) {
-    return [];
-  }
-
-  const sed = elit[0];
-  return eiusmod.tempor(sed) ? sed : [sed];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
+```diff 8:12 title="Requests" subtitle="Requests are the actual \"links\" that the browser will access"
 ```
 
-```diff 1[10:14],2[15:19],3[22:27],10:12
+```diff 8[23:35] title="Request URIs" subtitle="By specifiying this property, the server will listen to requests to the \"/hr/control/EditEmployee\" URL"
+```
 
+```diff 8[23:35] title="Request URIs" subtitle="By specifiying this property, the server will listen to requests to the \"/hr/control/EditEmployee\" URL"
+```
+
+```diff 9 title="Security" subtitle="This tag defines if authentication is required for this request. This line should be there most of the time."
+```
+
+```diff 10[19:33],11[19:31],15[19:33],16[19:31],17[19:35] title="Response names" subtitle="Based on the state of the code executed during this request, the server can do different things (e.g. redirect to an error page if there was an error)"
 ```
 
 </CodeSurfer>
 
 ---
 
-<CodeSurferColumns themes={[vsDark, github]}>
+## Controller Responses
+
+We are going to explore the two most common response types
+
+---
+
+<CodeSurferColumns>
 
 <Step>
 
-```js
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+```xml 1[30:41] title="Views" subtitle="Views are responses that usually return HTML. (they can also return PDFs, CSVs and other \"user-friendly\" outputs"
+    <response name="success" type="view" value="EditEmployee"/>
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```xml 1[30:44],2[28:42] title="Requests" subtitle="Requests are responses that return either raw data (json), or call a different request (directly, or by redirecting the user to one)"
+    <response name="success" type="request" value="json"/>
+    <response name="error" type="request" value="json"/>
 ```
 
 </Step>
 
 <Step>
 
-```js
-const lorem = (ipsum, dolor, sit) => {
-  const amet = dolor - ipsum;
-  return consectetur.adipiscing(
-    {
-      elit: sed.eiusmod(sit - dolor) / amet + 2,
-    },
-    (tempor, incididunt) => ipsum + amet * incididunt
-  );
-};
+```xml 3,7,8 subtitle="Views have a corresponding \"view-map\" at the end of the same controller.xml file that defines the type of view, and what will produce the output"
+<request-map uri="EditEmployee">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="EditEmployee"/>
+    <response name="error" type="view" value="EditEmployeeError"/>
+</request-map>
 
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+<view-map name="EditEmployee" type="screen"
+        page="component://hr/widget/management/EmployeeScreens.xml#EditEmployee"/>
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
-
-const sed = (eiusmod, tempor, incididunt) => {
-  const ut = tempor - eiusmod;
-  return labore.et(
-    {
-      amet: dolore.magna(incididunt - tempor) / ut + 2,
-    },
-    (aliqua, elit) => eiusmod + ut * elit
-  );
-};
+```xml 3:4 subtitle="Because these responses only return data, they have no \"view-map\" equivalents"
+<request-map uri="saveEmployee">
+    <security https="true" auth="true"/>
+    <response name="success" type="request" value="json"/>
+    <response name="error" type="request" value="json"/>
+</request-map>
 ```
 
 </Step>
@@ -148,5 +86,4 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:  
-[codesurfer.pomb.us](https://codesurfer.pomb.us)
+Fin.
