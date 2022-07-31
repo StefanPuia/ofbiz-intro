@@ -1,0 +1,31 @@
+@startuml ofbiz
+autonumber
+actor Browser
+control Controller
+participant Screen
+participant "Screen Action" as screenAction
+database Database
+
+Browser -> Controller : Redirect / Form post
+activate Controller
+
+alt Successful request
+  Controller -> Screen : Render screen
+  activate Screen
+
+  Screen -> screenAction : Collect data for the screen
+  activate screenAction
+
+  screenAction -> Database : Query data
+  activate Database
+  return Raw data
+  return Manipulated data for rendering
+  return HTML
+else Error during screen render
+  Controller -> Screen : Eror screen
+  activate Screen
+  return Error HTML
+end
+
+return HTML
+@enduml

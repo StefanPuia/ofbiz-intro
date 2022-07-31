@@ -1,0 +1,25 @@
+@startuml ofbiz
+autonumber
+actor Browser
+control Controller
+participant Event
+database Database
+
+Browser -> Controller : Ajax request
+activate Controller
+
+alt Successful request
+  Controller -> Event : Fetch data
+  activate Event
+
+  Event -> Database : Query data
+  activate Database
+
+  return Raw data
+  return Manipulated data
+  Controller --> Browser : Manipulated data
+else Error during screen render
+  Controller --> Browser : Eror data
+end
+
+@enduml

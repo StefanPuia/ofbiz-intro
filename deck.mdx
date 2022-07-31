@@ -4,7 +4,7 @@ import {
   Step,
 } from "code-surfer";
 import { vsDark } from "@code-surfer/themes";
-import ofbizArchitecture from './images/ofbiz-architecture.png';
+import * as images from "./images";
 
 export const theme = vsDark;
 
@@ -20,28 +20,40 @@ This is an introduction to the [OFBiz Framework](https://cwiki.apache.org/conflu
 
 - [Controllers](/3)
 - [Screens](/8)
-- [Services](/10)
-- [Query classes](/12)
+- [Events](/10)
+- [Services](/12)
+- [Query classes](/14)
 
 ---
 
-## How ofbiz works
+## How ofbiz works 😬
 
-<img src={ofbizArchitecture} style="height:70vh;"/>
+<img src={images.ofbizArchitecture} style="height:300px;" />
+
+<center>
+  OFBiz is a complex system, with a lot of moving parts.
+  <br />
+  We're going to take it apart and understand how they all
+  work.
+</center>
 
 ---
 
 ## The controller
 
-The controller is the entry point to the application.<br/>
-It defines any links accessible by the browser.<br/>
-These can be found in `controller.xml` files.
+<center>
+  The controller is the entry point to the application.
+  <br />
+  It defines any links accessible by the browser.
+  <br />
+  These can be found in `controller.xml` files.
+</center>
 
 ---
 
 <CodeSurfer>
 
-```xml file=./snippets/controller.xml title="The controller"
+```xml file=./snippets/controller/controller.xml title="The controller"
 
 ```
 
@@ -119,7 +131,7 @@ We are going to explore the two most common response types
         <event type="service" invoke="updateEmployee"/>
 ```
 
-```xml 10,17 file=./snippets/controller-event.xml title="Controller Request Events" subtitle="Most common types of events are services. They can also be defined by an actual location in the code (i.e. the full java class name)."
+```xml 10,17 file=./snippets/controller/controller-event.xml title="Controller Request Events" subtitle="Most common types of events are services. They can also be defined by an actual location in the code (i.e. the full java class name)."
 
 ```
 
@@ -129,7 +141,14 @@ We are going to explore the two most common response types
 
 ## Screens
 
-<!-- TODO -->
+<center>
+  <p>
+    Screens are XML snippets that allow creating a rendering
+    template.
+  </p>
+</center>
+
+<img src={images.controllerScreen} style="height:400px;" />
 
 ---
 
@@ -139,19 +158,19 @@ We are going to explore the two most common response types
 
 ```
 
-```xml 6[19:30],32[52:83] file=./snippets/screens.xml title="Screens" subtitle="The screen name is what the controller 'view-map' references."
+```xml 6[19:30],32[52:83] file=./snippets/screens.xml title="Screen name" subtitle="The screen name is what the controller 'view-map' references."
 
 ```
 
-```xml 8:11 file=./snippets/screens.xml title="Screens" subtitle="Screens can also have their own logic. This should only fetch data that needs to be displayed on the screen."
+```xml 8:11 file=./snippets/screens.xml title="Screen actions" subtitle="Screens can also have their own logic. This should only fetch data that needs to be displayed on the screen."
 
 ```
 
-```xml 13:14,22:23 file=./snippets/screens.xml title="Screens" subtitle="The decorator wraps the screen with all the global markup (application bar, scripts, style)."
+```xml 13:14,22:23 file=./snippets/screens.xml title="Decorator" subtitle="The decorator wraps the screen with all the global markup (application bar, scripts, style)."
 
 ```
 
-```xml 16:20 file=./snippets/screens.xml title="Screens" subtitle="Freemarker template files can be injected into the screen directly. They get access to any context variables set up to this point."
+```xml 16:20 file=./snippets/screens.xml title="Screen content" subtitle="Freemarker template files can be injected into the screen directly. They get access to any context variables set up to this point."
 
 ```
 
@@ -159,11 +178,93 @@ We are going to explore the two most common response types
 
 ---
 
+## Events
+
+<center>
+  <p>
+    Screens are XML snippets that allow creating a rendering
+    template.
+  </p>
+</center>
+
+<img src={images.controllerEvent} style="height:400px;" />
+
+---
+
+<CodeSurferColumns>
+
+<Step>
+
+```clike file=./snippets/events/java-event.java title="Java events"
+
+```
+
+```javascript file=./snippets/events/groovy-event.groovy title="Groovy events"
+
+```
+
+</Step>
+
+<Step subtitle={"The controller defines the file location and method name."}>
+
+```clike 1[9:30],3[14:24],4[24:30],20[29:61,72:78] file=./snippets/events/java-event.java title="Java events"
+
+```
+
+```javascript 3[8:22],15[31:92],16[15:29] file=./snippets/events/groovy-event.groovy title="Groovy events"
+
+```
+
+</Step>
+
+<Step>
+
+```clike 11 file=./snippets/events/java-event.java title="Java events" subtitle="Parameters are retrieved from the request."
+
+```
+
+```javascript 7 file=./snippets/events/groovy-event.groovy title="Groovy events" subtitle="Parameters are injected into the 'parameters' context variable."
+
+```
+
+</Step>
+
+<Step subtitle={"Adding fields to the return object."}>
+
+```clike 13 file=./snippets/events/java-event.java title="Java events"
+
+```
+
+```javascript 9 file=./snippets/events/groovy-event.groovy title="Groovy events"
+
+```
+
+</Step>
+
+<Step subtitle={"Setting the response name."}>
+
+```clike 15,21[20:26] file=./snippets/events/java-event.java title="Java events"
+
+```
+
+```javascript 11,17[20:26] file=./snippets/events/groovy-event.groovy title="Groovy events"
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
 ## Services
 
-Services are globally defined methods that can be invoked across the system.<br/>
-Because they are global, check if there is a service with the same name before <br/>
-creating one, otherwise one of them will end up overwriting the other one.
+<center>
+  Services are globally defined methods that can be invoked across the system.<br/>
+  Services should be used when making changes to the database.<br/>
+  Because they are global, check if there is a service with the same name before <br/>
+  creating one, otherwise one of them will end up overwriting the other one.
+</center>
 
 ---
 
@@ -173,31 +274,41 @@ creating one, otherwise one of them will end up overwriting the other one.
 
 ```
 
-```xml 7[20:33],20[35:48] file=./snippets/services.xml title="Services" subtitle="The service name is used by controller events."
+```xml 7[20:33],20[35:48] file=./snippets/services.xml title="Service name" subtitle="The service name is used by controller events."
 
 ```
 
-```xml 8[9:73] file=./snippets/services.xml title="Services" subtitle="The location and invoke attributes define where the code for this service is."
+```xml 8[9:73] file=./snippets/services.xml title="Service location" subtitle="The location and invoke attributes define where the code for this service is."
 
 ```
 
-```xml 7[36:48] file=./snippets/services.xml title="Services" subtitle="Services can be written in multiple languages (java, groovy, minilang). The engine attribute controls this."
+```xml 7[36:48] file=./snippets/services.xml title="Service engine" subtitle="Services can be written in multiple languages (java, groovy, minilang). The engine attribute controls this."
 
 ```
 
-```xml 10:13 file=./snippets/services.xml title="Services" subtitle="Because services act as methods, they can have input and output parameters."
+```xml 10:13 file=./snippets/services.xml title="Service parameters" subtitle="Because services act as methods, they can have input and output parameters."
 
 ```
 
-```xml 10[49:60],11[51:59],12[50:58],13[56:65] file=./snippets/services.xml title="Services" subtitle="The mode attribute controls this. Service parameters can be 'IN' (input), 'OUT' (output) or 'INOUT' (both input and output)."
+```xml 10[49:60],11[51:59],12[50:58],13[56:65] file=./snippets/services.xml title="Parameter modes" subtitle="The mode attribute controls this. Service parameters can be 'IN' (input), 'OUT' (output) or 'INOUT' (both input and output)."
 
 ```
 
-```xml 11[61:75],12[60:74] file=./snippets/services.xml title="Services" subtitle="Some parameters can also be optional. The service engine (which is responsible for executing these services) will use this definition to validate input and output parameters."
+```xml 11[61:75],12[60:74] file=./snippets/services.xml title="Optional parameters" subtitle="Some parameters can also be optional. The service engine (which is responsible for executing these services) will use this definition to validate input and output parameters."
 
 ```
 
-```xml 10[35:48],11[36:50],12[35:49],13[39:55] file=./snippets/services.xml title="Services" subtitle="The java variable type is also required for all parameters."
+```xml 10[35:48],11[36:50],12[35:49],13[39:55] file=./snippets/services.xml title="Parameter types" subtitle="The java variable type is also required for all parameters."
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```clike file=./snippets/services/service.java title="Java service"
 
 ```
 
@@ -238,4 +349,6 @@ They allow us to keep all database queries in one place.
 
 ---
 
-Fin.
+fin.
+
+Back to [contents](/1)

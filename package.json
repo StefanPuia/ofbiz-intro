@@ -1,14 +1,19 @@
 {
   "private": true,
+  "name": "ofbiz-intro",
   "version": "1.0.0",
   "scripts": {
-    "start": "mdx-deck deck.mdx",
-    "build": "mdx-deck build deck.mdx",
-    "test": "echo \"there are no tests\""
+    "start:mdx": "mdx-deck deck.mdx",
+    "build:mdx": "mdx-deck build deck.mdx",
+    "test": "echo \"there are no tests\"",
+    "puml": "node scripts/puml.js",
+    "start": "run-s puml start:mdx",
+    "build": "run-s puml build:mdx"
   },
   "devDependencies": {
     "code-surfer": "3.1.0",
-    "mdx-deck": "3.0.13"
-  },
-  "name": "ofbiz-intro"
+    "mdx-deck": "3.0.13",
+    "node-plantuml": "^0.9.0",
+    "npm-run-all": "^4.1.5"
+  }
 }
