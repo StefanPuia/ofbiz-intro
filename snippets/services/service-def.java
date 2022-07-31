@@ -26,3 +26,12 @@ public class UpdateEmployee {
     return returnMap;
   }
 }
+
+// Code snippet from services.xml
+// <service name="updateEmployee" engine="java" auth="true"
+//     location="com.stannah.hr.service.UpdateEmployee" invoke="execute">
+//   <description>Updates an employee's first and last names</description>
+//   <attribute name="partyId" type="String" mode="INOUT"/>
+//   <attribute name="firstName" type="String" mode="IN" optional="true"/>
+//   <attribute name="lastName" type="String" mode="IN" optional="true"/>
+// </service>

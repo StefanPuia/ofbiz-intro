@@ -22,7 +22,9 @@ This is an introduction to the [OFBiz Framework](https://cwiki.apache.org/conflu
 - [Screens](/8)
 - [Events](/10)
 - [Services](/12)
-- [Query classes](/14)
+- [Java services](/14)
+- [Query classes](/16)
+- [FAQ](/17)
 
 ---
 
@@ -260,10 +262,16 @@ We are going to explore the two most common response types
 ## Services
 
 <center>
-  Services are globally defined methods that can be invoked across the system.<br/>
-  Services should be used when making changes to the database.<br/>
-  Because they are global, check if there is a service with the same name before <br/>
-  creating one, otherwise one of them will end up overwriting the other one.
+  Services are globally defined methods that can be invoked
+  across the system.
+  <br />
+  Services should be used when making changes to the
+  database.
+  <br />
+  Because they are global, check if there is a service with
+  the same name before <br />
+  creating one, otherwise one of them will end up overwriting
+  the other one.
 </center>
 
 ---
@@ -308,7 +316,23 @@ We are going to explore the two most common response types
 
 <CodeSurfer>
 
-```clike file=./snippets/services/service.java title="Java service"
+```clike 1:28 file=./snippets/services/service.java title="Java service" subtitle="Services can be writtern in java, groovy or minilang. We discourage the creation of new groovy and minilang services."
+
+```
+
+```clike 1[9:30],3[14:27],4[30:36],32[18:54,65:71] file=./snippets/services/service-def.java title="Service definition" subtitle="services.xml defines the location and method name."
+
+```
+
+```clike 4:6 file=./snippets/services/service.java title="Service method header" subtitle="Services, like events, have a very specific method header."
+
+```
+
+```clike 10:12 file=./snippets/services/service.java title="Service parameters" subtitle="IN parameters are available through the 'context' method argument."
+
+```
+
+```clike 24:26 file=./snippets/services/service.java title="Service parameters" subtitle="OUT parameters need to be provided in the returned map."
 
 ```
 
@@ -346,6 +370,20 @@ They allow us to keep all database queries in one place.
 ```
 
 </CodeSurfer>
+
+---
+
+## FAQ
+
+<center>
+  Short list of frequently asked questions.
+  <br />
+  More answers on the{" "}
+  <a href="https://stackoverflow.com/c/stannah/questions">
+    company stackoverflow
+  </a>{" "}
+  page.
+</center>
 
 ---
 
