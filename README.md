@@ -1,12 +1,9 @@
-# MDX Deck + Code Surfer template
-
-This project was generated with the `npm init code-surfer-deck` command.
-
 ## Development
 
 To run the presentation deck in development mode:
 
 ```sh
+npm i --legacy-peer-deps
 npm start
 ```
 
